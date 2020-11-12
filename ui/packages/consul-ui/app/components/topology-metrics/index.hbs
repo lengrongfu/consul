@@ -17,7 +17,8 @@
     </div>
   {{#each @topology.Downstreams as |item|}}
     <TopologyMetrics::Card
-      @item={{item}}
+      @nspace={{@nspace}}
+      @dc={{@dc}}
       @service={{@service.Service}}
       @dc={{@dc}}
       @hasMetricsProvider={{this.hasMetricsProvider}}
@@ -40,6 +41,7 @@
       />
       {{#if (not-eq @service.Service.Kind 'ingress-gateway')}}
       <TopologyMetrics::Stats
+        @nspace={{@nspace}}
         @dc={{@dc}}
         @endpoint='summary-for-service'
         @service={{@service.Service.Service}}
@@ -74,9 +76,10 @@
       <p>{{dc}}</p>
     {{#each upstreams as |item|}}
       <TopologyMetrics::Card
+        @nspace={{@nspace}}
+        @dc={{@dc}}
         @item={{item}}
         @service={{@service.Service}}
-        @dc={{@dc}}
         @type='upstream'
         @hasMetricsProvider={{this.hasMetricsProvider}}
         @noMetricsReason={{this.noMetricsReason}}
