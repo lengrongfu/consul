@@ -8,7 +8,7 @@
 {{#if (gt @topology.Downstreams.length 0)}}
   <div id="downstream-container">
     <div>
-      <p>{{@topology.Datacenter}}</p>
+      <p>{{@dc}}</p>
       <span>
         <Tooltip>
           Only showing downstreams within the current datacenter for {{@service.Service.Service}}.
@@ -19,7 +19,7 @@
     <TopologyMetrics::Card
       @item={{item}}
       @service={{@service.Service}}
-      @dc={{@topology.Datacenter}}
+      @dc={{@dc}}
       @hasMetricsProvider={{this.hasMetricsProvider}}
       @noMetricsReason={{this.noMetricsReason}}
     />
@@ -32,16 +32,17 @@
     </div>
     {{#if this.hasMetricsProvider }}
       <TopologyMetrics::Series
+        @nspace={{@nspace}}
+        @dc={{@dc}}
         @service={{@service.Service.Service}}
-        @dc={{@topology.Datacenter}}
         @protocol={{@topology.Protocol}}
         @noMetricsReason={{this.noMetricsReason}}
       />
       {{#if (not-eq @service.Service.Kind 'ingress-gateway')}}
       <TopologyMetrics::Stats
+        @dc={{@dc}}
         @endpoint='summary-for-service'
         @service={{@service.Service.Service}}
-        @dc={{@topology.Datacenter}}
         @protocol={{@topology.Protocol}}
         @noMetricsReason={{this.noMetricsReason}}
       />
@@ -75,7 +76,7 @@
       <TopologyMetrics::Card
         @item={{item}}
         @service={{@service.Service}}
-        @dc={{@topology.Datacenter}}
+        @dc={{@dc}}
         @type='upstream'
         @hasMetricsProvider={{this.hasMetricsProvider}}
         @noMetricsReason={{this.noMetricsReason}}
